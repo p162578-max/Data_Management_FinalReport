@@ -218,6 +218,12 @@ The project produces **16+ business analysis indicators** across two dimensions:
 - Team scoring distribution boxplots
 - Multi-player contribution breakdown
 
+Create a query function on Hive and display the query results. I have placed the result screenshot in the Hive screenshot section, and it is presented below：
+
+<p align="center">
+  <img src="Data%20visualizations/01_top_scorers.png" alt="Top Scorers" width="70%">
+</p>
+
 ### 4.5 Phase 5: Data Visualization
 
 Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated
@@ -347,27 +353,28 @@ This chart breaks down the scoring portfolios of the league's top 4 scorers into
 
 - Free Throw Reliance: SGA has the highest share of points coming from the charity stripe at 25.4%, highlighting his elite ability to drive and draw contact. Meanwhile, Edwards relies the least on free throws, with them accounting for only 19.9% of his points.
 
-## 5. Results and Findings
+## 5. Limitations & Future Improvements
 
-### 5.1 Overall Architecture Improvement
+### 5.1 Optimizable Aspects (Completed but Improvable)
 
-Initially, the project used direct table queries. After evolving to a three-layer architecture (ODS to EDW to DM), query performance improved **10x**, and every indicator can be traced back to its cleaning logic and raw data source.
+1. **Automated Data Cleaning**: Current cleaning steps require manual Hive SQL execution; future work can encapsulate them into a Shell script with `hive -f` for one-click execution
+2. **Query Performance Optimization**: Certain JOIN queries (e.g., Q3 Regular Season vs Playoffs) can benefit from pre-partitioning `nba_player_season_summary` by `PARTITIONED BY (season, game_type)` to reduce full table scans
+3. **Interactive Visualization**: Currently static PNG charts; future iterations can incorporate Plotly or ECharts for interactive dashboards
 
-### 5.2 Key Issues and Solutions
+### 5.2 Technical Limitations
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| 1500 PPG Bug | Player detail JOIN amplification | Switch to independent team game log tables |
-| Special characters in names | Doncic accent marks | Use LIKE fuzzy matching on last names |
-| GROUP BY compile error | CASE alias cannot be used in GROUP BY | Fully replicate the CASE expression |
-| Division by zero error | FLOAT division when attempts = 0 | CASE WHEN protection |
-| HiveServer2 timeout | Python remote connection configuration | Confirm HOST/PORT/auth settings |
+1. **HiveServer2 Connection Stability**: When the Python script connects to Hive via Impala, IP changes or closed ports on the VM require manual `HIVE_HOST` reconfiguration — no auto-discovery mechanism exists
+2. **Single-Node Processing Bottleneck**: All analytical queries execute on a single-node Hive instance; larger datasets (e.g., multi-season full Play-by-Play logs) may encounter performance degradation
+3. **Data Freshness**: CSV data was manually downloaded and uploaded — no automated data pipeline (e.g., scheduled NBA API ingestion) is in place
 
-### 5.3 Key Advantages
+### 5.3 Key Takeaways
 
-1. **HDFS Distributed Storage**: Reliable storage for large-scale datasets, providing a unified data foundation for subsequent analysis.
-2. **Hive External Table Flexibility**: `CREATE EXTERNAL TABLE` + `LOCATION` enables separation of storage and compute — dropping a table does not affect raw HDFS files.
-3. **Iterative Development Value**: Starting from 8 queries to reaching 16 indicators, 11 charts, and a three-layer architecture — each iteration was built on feedback and fixes from previous code.
+- The **external table strategy** proved crucial: raw CSV files on HDFS are mapped without duplication, and dropping tables never risks losing source data
+- The **summary mart construction** approach reduced complex analytical query complexity from O(n) to O(1): all 16 metric queries reference only `nba_player_season_summary` and `nba_team_games_clean`, never rescanning raw detail tables
+- In the visualization phase, the **scatter plot (Q5) and box plot (T10)** delivered the most analytical depth, revealing multi-dimensional relationships — scoring volume vs efficiency and team scoring dispersion — that bar charts and line charts cannot capture
+
+---
+
 
 ## 6. Conclusion
 
@@ -375,9 +382,7 @@ This project successfully implemented a complete big data management pipeline us
 
 From the results, the project delivered **16+ business indicators** and **11 visualization charts** that effectively cover the core scenarios of professional sports data analysis, including scoring leaders, efficiency evaluation, player improvement tracking, home-court advantage quantification, and playoff performance comparison.
 
-The most valuable lesson learned was the "1500 PPG Bug" — a seemingly minor SQL JOIN oversight that produced meaningless business results. This highlights that **data quality validation must be grounded in business domain knowledge**. The credibility of statistical indicators ultimately needs to be verified within the actual business context.
-
-Another key takeaway is the value of iterative development. The "run first, optimize second, expand third" development model proved especially effective for data management projects. In the future, this pipeline could be extended with Parquet columnar storage for 3-5x performance gains, time-series analysis for monthly trends and back-to-back game impacts, machine learning predictions based on eFG%/TS%/plus-minus metrics, real-time data streaming with Kafka + Spark Streaming, and interactive web dashboards using Superset or Grafana.
+One key takeaway is the value of iterative development. The "run first, optimize second, expand third" development model proved especially effective for data management projects. In the future, this pipeline could be extended with Parquet columnar storage for 3-5x performance gains, time-series analysis for monthly trends and back-to-back game impacts, machine learning predictions based on eFG%/TS%/plus-minus metrics, real-time data streaming with Kafka + Spark Streaming, and interactive web dashboards using Superset or Grafana.
 
 ---
 
