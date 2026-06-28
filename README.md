@@ -220,7 +220,60 @@ The project produces **16+ business analysis indicators** across two dimensions:
 
 ### 4.5 Phase 5: Data Visualization
 
-Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated:
+Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated
+
+The connection code and function definitions are as follows:
+```sql
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+import seaborn as sns
+import os, warnings
+warnings.filterwarnings('ignore')
+
+# Configuration
+HIVE_HOST = '127.0.0.1'   # IP address
+HIVE_PORT = 10000
+HIVE_USER = 'root'
+OUTPUT_DIR = 'charts'
+
+matplotlib.rcParams['font.sans-serif'] = ['Arial', 'DejaVu Sans']
+matplotlib.rcParams['axes.unicode_minus'] = False
+sns.set_style('whitegrid')
+sns.set_palette('Set2')
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Hive Connection
+def get_conn():
+    from impala.dbapi import connect
+    return connect(host=HIVE_HOST, port=HIVE_PORT, user=HIVE_USER, auth_mechanism='PLAIN', database='nba_db')
+
+def query(sql):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(sql)
+    # Automatically strip table aliases (e.g., 'a.fullname' -> 'fullname') and lower case to prevent KeyErrors
+    cols = [d[0].split('.')[-1].lower() for d in cur.description]
+    rows = cur.fetchall()
+    conn.close()
+    return pd.DataFrame(rows, columns=cols)
+
+def save_chart(fig, name):
+    path = os.path.join(OUTPUT_DIR, name)
+    fig.savefig(path, dpi=200, bbox_inches='tight')
+    print('   -> saved:', path)
+
+print('=== Connecting to Hive at', HIVE_HOST + '...')
+try:
+    df_test = query('SELECT COUNT(*) AS cnt FROM nba_players_clean_2526')
+    print('   OK! Rows:', df_test.cnt[0])
+except Exception as e:
+    print('   FAILED:', e)
+    print('   Tips: 1) Check HIVE_HOST  2) Is HiveServer2 running?  3) Port 10000 open?')
+    exit()
+```
+
+#### The 11 visual charts and their content analysis are as follows:
 
 <p align="center">
   <img src="Data%20visualizations/01_top_scorers.png" alt="Top Scorers" width="70%">
