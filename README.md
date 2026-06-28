@@ -17,6 +17,8 @@ Before running this project, please ensure the following infrastructure and depe
 
 ### Infrastructure
 
+<div align="center">
+
 | Component | Purpose | Runtime Environment |
 |-----------|---------|-------------------|
 | **Hadoop HDFS** | Distributed file storage | Hadoop 2.6 Virtual Machine |
@@ -26,6 +28,8 @@ Before running this project, please ensure the following infrastructure and depe
 | **Impyla (pyHive)** | Python remote connection to HiveServer2 | Local VSCode |
 | **PuTTY** | SSH remote connection to VM | Windows Host |
 | **GitHub** | Version control and data transfer | Cloud Repository |
+
+</div>
 
 ### Core Python Dependencies
 
@@ -62,14 +66,22 @@ The project compiles **10 CSV datasets** in total:
 
 #### Player Per-Game Details (Core Detail Tables)
 
+<div align="center">
+
 | File Name | Type | Records |
 |-----------|------|---------|
 | nba_2024-25_player_statistics.csv | Player game logs | ~37,779 rows |
 | nba_2025-26_player_statistics.csv | Player game logs | ~37,576 rows |
 
+</div>
+
+
 **Core fields (40 columns)**: `firstName`, `lastName`, `points`, `assists`, `reboundsTotal`, `fieldGoalsPercentage`, `threePointersPercentage`, `freeThrowsPercentage`, `plusMinusPoints`, `numMinutes`, `turnovers`, `foulsPersonal`, etc.
 
 #### Player Season Average Summary (Auxiliary Reference Tables)
+
+
+<div align="center">
 
 | File Name | Records |
 |-----------|---------|
@@ -78,7 +90,11 @@ The project compiles **10 CSV datasets** in total:
 | nba_2024-25_playoffs_players.csv | ~219 rows |
 | nba_2025-26_playoffs_players.csv | ~230 rows |
 
+</div>
+
 #### Team Per-Game Logs (Core Business Tables)
+
+<div align="center">
 
 | File Name | Type | Records |
 |-----------|------|---------|
@@ -86,6 +102,9 @@ The project compiles **10 CSV datasets** in total:
 | nba_2025-26_regular_team_games.csv | Regular season team logs | 2,460 rows |
 | nba_2024-25_playoffs_team_games.csv | Playoff team logs | ~168 rows |
 | nba_2025-26_playoffs_team_games.csv | Playoff team logs | ~170 rows |
+
+</div>
+
 
 **Core fields (28 columns)**: `pts`, `fgm`, `fga`, `fg3m`, `fg3a`, `ftm`, `fta`, `reb`, `ast`, `stl`, `blk`, `tov`, `pf`, `plus_minus`, `wl`, etc.
 
@@ -102,12 +121,12 @@ The project compiles **10 CSV datasets** in total:
 - Use `UNION ALL` to consolidate multi-season data into unified views (`nba_players_all`, `nba_teams_all`)
 - Build aggregated summary tables (`nba_player_season_summary`)
 
-<p align="center">
-  <img src="部分查询截图/HDFS_HIVE01.png" alt="HDFS and Hive Query Results 1" width="80%">
-</p>
+<div align="center">
+    <img src="Hive%20screenshot/HDFS_HIVE01.png">
+</div>
 
 <p align="center">
-  <img src="部分查询截图/HDFS_HIVE02.png" alt="HDFS and Hive Query Results 2" width="80%">
+  <img src="Hive%20screenshot/HDFS_HIVE02.png">
 </p>
 
 ## 4. Analysis Workflow
@@ -204,28 +223,76 @@ The project produces **16+ business analysis indicators** across two dimensions:
 Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated:
 
 <p align="center">
-  <img src="charts/01_top_scorers.png" alt="Top Scorers" width="45%">
-  <img src="charts/02_team_scoring.png" alt="Team Scoring" width="45%">
+  <img src="Data%20visualizations/01_top_scorers.png" alt="Top Scorers" width="70%">
 </p>
+
+- Luka Doncic (Lakers) leads the league with an incredible 33.5 PPG, alongside near triple-double averages of 8.3 AST and 7.7 REB. He is followed by Shai Gilgeous-Alexander (Thunder, 31.1 PPG) and Anthony Edwards (Timberwolves, 29.2 PPG).
+
 <p align="center">
-  <img src="charts/03_reg_vs_playoffs.png" alt="Regular vs Playoffs" width="45%">
-  <img src="charts/04_improvement.png" alt="Most Improved" width="45%">
+  <img src="Data%20visualizations/02_team_scoring.png" alt="Team Scoring" width="70%">
 </p>
+
+- The Denver Nuggets top the league with a roaring 122.1 PPG, followed closely by the Miami Heat (120.9 PPG) and San Antonio Spurs (119.8 PPG). At the bottom, the Brooklyn Nets (105.9 PPG) struggle as the least potent offense in the league.
+
 <p align="center">
-  <img src="charts/05_efficiency.png" alt="Scoring Efficiency" width="45%">
-  <img src="charts/06_all_around.png" alt="All-Around Players" width="45%">
+  <img src="Data%20visualizations/03_reg_vs_playoffs.png" alt="Regular vs Playoffs" width="70%">
 </p>
+
+- This chart highlights which players step up in clutch moments. Players like Jalen Brunson (Knicks), Cade Cunningham (Pistons), and Paolo Banchero (Magic) saw significant scoring increases in the playoffs. Conversely, Shai Gilgeous-Alexander and Tyrese Maxey experienced a dip in their scoring outputs during the postseason.
+
 <p align="center">
-  <img src="charts/07_home_away.png" alt="Home vs Away" width="45%">
-  <img src="charts/08_three_pointers.png" alt="Three-Point Accuracy" width="45%">
+    <img src="Data%20visualizations/04_improvement.png" alt="Most Improved" width="70%">
 </p>
+
+- Nickeil Alexander-Walker shows the most explosive growth, increasing his scoring average by a massive +11.4 PPG. Lauri Markkanen (+7.7 PPG) and Deni Avdija (+7.5 PPG) also show stunning leaps into elite-tier scoring roles.
+
 <p align="center">
-  <img src="charts/09_star_radar.png" alt="Star Radar" width="45%">
-  <img src="charts/10_team_boxplot.png" alt="Team Boxplot" width="45%">
+  <img src="Data%20visualizations/05_efficiency.png" alt="Scoring Efficiency" width="70%">
 </p>
+
+- Nikola Jokic and Shai Gilgeous-Alexander occupy the ideal upper-right quadrant, combining high scoring volume with elite True Shooting Percentage (TS%) and high Plus/Minus values (dark green bubbles). Doncic has the highest volume (farthest right) but with slightly lower efficiency (~61% TS%) compared to Jokic.
+
 <p align="center">
-  <img src="charts/11_multi_players_pie.png" alt="Multi-Player Pie Chart" width="45%">
+  <img src="Data%20visualizations/06_all_around.png" alt="All-Around Players" width="70%">
 </p>
+
+- Nikola Jokic reigns supreme as the ultimate stat-sheet stuffer with a combined score of 51.3, heavily supported by massive rebounding and assist shares. Luka Doncic (49.5) takes second, while Giannis Antetokounmpo (44.5) stands third.
+
+<p align="center">
+  <img src="Data%20visualizations/07_home_away.png" alt="Home vs Away" width="70%">
+</p>
+
+- While the game distribution between home and away is an even split (left), the win rates show a fascinating anomaly: Away teams had a higher win rate (55.4%) than Home teams (44.6%), scoring more points on the road (116.5) than at home (114.8). This flips traditional home-court advantage on its head.
+
+<p align="center">
+  <img src="Data%20visualizations/08_three_pointers.png" alt="Three-Point Accuracy" width="70%">
+</p>
+
+- Luke Kennard (Hawks) lights it up from deep, leading the league with a near-impossible 49.7% 3PT%. Bobby Portis (45.6%) and Ayo Dosunmu (45.1%) follow. Jamal Murray’s 43.7% is highly impressive given his massive volume of 561 attempts.
+
+<p align="center">
+   <img src="Data%20visualizations/09_star_radar.png" alt="Star Radar" width="70%">
+</p>
+
+- Luka Doncic (Green) covers massive real estate in cumulative box-score stats like PTS, REB, and AST. However, Shai Gilgeous-Alexander (Orange) dominates in impact and defensive metrics, showing superior marks in +/-, BLK, and STL.
+
+<p align="center">
+  <img src="Data%20visualizations/10_team_boxplot.png" alt="Team Boxplot" width="70%">
+</p>
+
+- The Denver Nuggets not only have the highest average but their entire scoring floor and median (dark blue box) are elevated. Teams like the Knicks and 76ers show wide volatility (long whiskers and outliers), while the Brooklyn Nets (far right, maroon) are compressed at the bottom of the league's scoring spectrum.
+
+<p align="center">
+  <img src="Data%20visualizations/11_multi_players_pie.png" alt="Multi-Player Pie Chart" width="70%">
+</p>
+
+This chart breaks down the scoring portfolios of the league's top 4 scorers into 2-point fields goals (2PT), 3-pointers (3PT), and free throws (FT).
+
+- Luka Doncic (Lakers) & Anthony Edwards (Timberwolves): Both exhibit a more perimeter-heavy profile. Doncic relies on the deep ball for 35.5% of his total points, with Edwards right behind him at 34.9%, showing a much higher reliance on the 3-pointer than the other two stars.
+
+- Shai Gilgeous-Alexander (Thunder) & Jaylen Brown (Celtics): Both dominate inside the arc. They derive a massive ~58% of their total points from 2-pointers (SGA at 58.2%, Brown at 58.3%), emphasizing their mid-range and paint dominance.
+
+- Free Throw Reliance: SGA has the highest share of points coming from the charity stripe at 25.4%, highlighting his elite ability to drive and draw contact. Meanwhile, Edwards relies the least on free throws, with them accounting for only 19.9% of his points.
 
 ## 5. Results and Findings
 
@@ -261,59 +328,6 @@ Another key takeaway is the value of iterative development. The "run first, opti
 
 ---
 
-## Appendix A: Project File Structure
-
-```
-STQD6324-DataManagement-FinalReport/
-+-- README.md                                    # Project documentation (this file)
-+-- 01_Data_Collection&Upload.txt                # Data collection and HDFS upload guide
-+-- 02_HIVE_CREATE_TABLE.txt                     # Hive table creation SQL
-+-- 03_Data_Cleaning_and_Table_Join.txt          # Data cleaning and table join SQL
-+-- 04_Data_analytics.txt                        # Analysis query SQL
-+-- nba_visualization.py                         # Basic visualization script (direct Hive)
-+-- nba_advanced_viz.py                          # Advanced visualization script
-+-- nba_visualization_chinese.py                 # Chinese version visualization script
-+-- notebook.txt                                 # Zeppelin notebook export
-+-- NBA_Season_Analytics.json                    # Zeppelin notebook JSON
-+-- charts/                                      # Visualization chart outputs
-|   +-- 01_top_scorers.png                       # Top 20 scorers
-|   +-- 02_team_scoring.png                      # Team offensive ranking
-|   +-- 03_reg_vs_playoffs.png                   # Regular season vs. playoffs
-|   +-- 04_improvement.png                       # Most Improved Player
-|   +-- 05_efficiency.png                        # Scoring efficiency scatter plot
-|   +-- 06_all_around.png                        # All-around efficiency leaders
-|   +-- 07_home_away.png                         # Home court advantage analysis
-|   +-- 08_three_pointers.png                    # Three-point accuracy
-|   +-- 09_star_radar.png                        # Star player radar chart
-|   +-- 10_team_boxplot.png                      # Team scoring distribution boxplot
-|   +-- 11_multi_players_pie.png                 # Multi-player pie chart
-+-- old_code/                                    # Legacy code (for reference)
-|   +-- 01_hdfs_upload.sh
-|   +-- 02_create_tables.sql
-|   +-- 02b_create_team_tables.sql
-|   +-- 03_data_cleaning.sql
-|   +-- 03b_team_data_cleaning.sql
-|   +-- 04_analysis_queries.sql
-|   +-- 04b_team_analysis_queries.sql
-|   +-- 05_zeppelin_notebook.txt
-+-- query_screenshots/                           # Query result screenshots
-|   +-- HDFS_HIVE01.png
-|   +-- HDFS_HIVE02.png
-+-- nba_2024-25_player_statistics.csv
-+-- nba_2025-26_player_statistics.csv
-+-- nba_2024-25_regular_players.csv
-+-- nba_2025-26_regular_players.csv
-+-- nba_2024-25_playoffs_players.csv
-+-- nba_2025-26_playoffs_players.csv
-+-- nba_2024-25_regular_team_games.csv
-+-- nba_2025-26_regular_team_games.csv
-+-- nba_2024-25_playoffs_team_games.csv
-+-- nba_2025-26_playoffs_team_games.csv
-```
-
----
-
 > **Author**: p162578-max  
-> **Course**: STQD6324 Data Management  
-> **Semester**: 2025/2026, Semester 2  
+> **Course**: STQD6324 Data Management    
 > **Submission Date**: June 2026
