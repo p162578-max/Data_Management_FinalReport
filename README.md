@@ -11,10 +11,6 @@ The project delivers **16+ business analysis indicators** (10 player-dimension +
 
 **Target Industry**: Professional Sports Data Analytics / Sports Data Science
 
-**Course**: STQD6324 Data Management — Final Report
-**Program**: Master of Science (Data Science and Analytics)
-**Academic Year**: 2025/2026, Semester 2
-
 ## 2. Environment Requirements
 
 Before running this project, please ensure the following infrastructure and dependencies are available:
