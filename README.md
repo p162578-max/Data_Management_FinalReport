@@ -226,20 +226,79 @@ TBLPROPERTIES ('skip.header.line.count' = '0');
 
 ### 4.3 Phase 3: Data Cleaning and Table Joining
 
-Perform ETL to clean raw data and create unified views:
+Perform ETL to clean raw data and create unified views，create 5 tables and 1 view：
+- 01 nba_players_clean_2425
+- 02 nba_players_clean_2526	
+- 03 nba_team_games_clean
+- 04 nba_team_season_summary
+- 05 nba_player_season_summary
+- 06 nba_players_all(View for Players)
+
+I have compiled and saved the cleaning functions and table join functions in the file 03_Data_Cleaning_and_Table_Join.sql. You can refer to it for details.
+
+For example：
 
 ```sql
--- Create cleaned player view with derived metrics
-CREATE VIEW nba_players_clean AS
+-- Create cleaned advanced player statistics table for 2024-25 season
+CREATE TABLE IF NOT EXISTS nba_players_clean_2425
+STORED AS TEXTFILE
+AS
 SELECT
-    *,
-    ROUND((fieldGoalsMade + 0.5 * threePointersMade) / fieldGoalsAttempted, 3) AS efg_pct,
-    ROUND(points / (2 * (fieldGoalsAttempted + 0.44 * freeThrowsAttempted)), 3) AS ts_pct,
-    ROUND(points + 0.4 * fieldGoalsMade - 0.7 * fieldGoalsAttempted
-          - 0.4 * (freeThrowsAttempted - freeThrowsMade) + 0.7 * offensiveRebounds
-          + 0.3 * defensiveRebounds + steals + 0.7 * assists
-          + 0.7 * blocks - 0.4 * personalFouls - turnovers, 1) AS game_score
-FROM raw_player_stats;
+  firstName,
+  lastName,
+  CONCAT(firstName, ' ', lastName) AS fullName,
+  personId,
+  playerteamName AS team_name,
+  opponentteamName AS opponent,
+  gameType AS game_type,
+  -- Mark season phase
+  CASE WHEN gameType = 'Regular Season' THEN 'Regular'
+       WHEN gameType = 'Playoffs' THEN 'Playoffs'
+       ELSE 'Other'
+  END AS season_phase,
+  win AS is_win,
+  home AS is_home,
+  -- Minutes played: set DNP (Did Not Play) absent players to 0
+  CASE WHEN numMinutes IS NULL OR comment LIKE 'DNP%' THEN 0.0
+       ELSE numMinutes
+  END AS minutes_played,
+  points AS pts,
+  assists AS ast,
+  blocks AS blk,
+  steals AS stl,
+  reboundsTotal AS reb,
+  reboundsOffensive AS oreb,
+  reboundsDefensive AS dreb,
+  fieldGoalsMade AS fgm,
+  fieldGoalsAttempted AS fga,
+  -- Use NULL for percentage when no attempts, preventing division by zero errors
+  CASE WHEN fieldGoalsAttempted > 0 THEN fieldGoalsPercentage ELSE NULL END AS fg_pct,
+  threePointersMade AS fg3m,
+  threePointersAttempted AS fg3a,
+  CASE WHEN threePointersAttempted > 0 THEN threePointersPercentage ELSE NULL END AS fg3_pct,
+  freeThrowsMade AS ftm,
+  freeThrowsAttempted AS fta,
+  CASE WHEN freeThrowsAttempted > 0 THEN freeThrowsPercentage ELSE NULL END AS ft_pct,
+  foulsPersonal AS pf,
+  turnovers AS tov,
+  plusMinusPoints AS plus_minus,
+  -- Advanced feature engineering: Effective Field Goal % eFG% = (FGM + 0.5*3PM) / FGA
+  CASE WHEN fieldGoalsAttempted > 0
+       THEN ROUND((fieldGoalsMade + 0.5 * threePointersMade) / fieldGoalsAttempted, 3)
+       ELSE NULL
+  END AS efg_pct,
+  -- Advanced feature engineering: True Shooting % TS% = PTS / (2 * (FGA + 0.44*FTA))
+  CASE WHEN fieldGoalsAttempted + freeThrowsAttempted > 0
+       THEN ROUND(points / (2.0 * (fieldGoalsAttempted + 0.44 * freeThrowsAttempted)), 3)
+       ELSE NULL
+  END AS ts_pct,
+  -- Advanced feature engineering: Player efficiency per minute metric (simplified contribution)
+  CASE WHEN (CASE WHEN numMinutes IS NULL OR comment LIKE 'DNP%' THEN 0.0 ELSE numMinutes END) > 0
+       THEN ROUND((points + reboundsTotal + assists + steals + blocks - (fieldGoalsAttempted - fieldGoalsMade) - (freeThrowsAttempted - freeThrowsMade) - turnovers) / (CASE WHEN numMinutes IS NULL OR comment LIKE 'DNP%' THEN 0.0 ELSE numMinutes END), 2)
+       ELSE NULL
+  END AS gm_score_per_min,
+  gameDate AS game_date
+FROM nba_player_stats_2425;
 ```
 
 ### 4.4 Phase 4: Data Analysis
