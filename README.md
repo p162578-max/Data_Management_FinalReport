@@ -54,6 +54,8 @@ SET hive.mapred.mode = nonstrict;
 
 ### 3.1 Dataset Sources
 
+I'm a big fan of the NBA and have a strong interest in player and team statistics. That's why, for this project, I decided to use NBA game data from the last two seasons as my analytical dataset. I collected data from Basketball-Reference.com and the official stats.nba.com website. To enrich the dataset, I also downloaded the "NBA Dataset: Box Scores and Stats (1947 – Today)" from Kaggle and extracted game records from the most recent two seasons. After processing, I compiled 10 raw datasets in total. All these raw files have been uploaded to this repository and stored in the dataset folder for easy access and further use.
+
 | Source | Description | Data Content |
 |--------|-------------|-------------|
 | **Basketball-Reference.com** | Authoritative NBA statistics website | Player season averages / playoff player data |
@@ -132,18 +134,63 @@ The project compiles **10 CSV datasets** in total:
 Clone the dataset repository onto the VM:
 
 ```bash
+## Step 1: After logging in via PuTTY, clone the repository and navigate to the download directory
+
 mkdir -p ~/nba_project
+
 cd ~/nba_project
-git clone https://github.com/p162578-max/Data_Management_FinalReport.git
-cd Data_Management_FinalReport/dataset
 
-# Remove headers and batch upload to HDFS
+git clone https://github.com/p162578-max/Data_Management_FinalReport.git  # Clone the dataset from GitHub
+
+cd Data_Management_FinalReport/dataset  # Navigate to the directory containing the 10 CSV files
+
+ls -l *.csv  # List all CSV files
+
+Step 2: One‑click creation of HDFS directories and data upload
+
+# Create a temporary folder to store data without headers
 mkdir -p ./no_header_data
-tail -n +2 nba_2024-25_player_statistics.csv > ./no_header_data/nba_2024-25_player_statistics.csv
 
-# Create HDFS directories and upload
+# Remove the header (first line) from each CSV file
+tail -n +2 nba_2024-25_player_statistics.csv > ./no_header_data/nba_2024-25_player_statistics.csv
+tail -n +2 nba_2025-26_player_statistics.csv > ./no_header_data/nba_2025-26_player_statistics.csv
+tail -n +2 nba_2024-25_playoffs_players.csv > ./no_header_data/nba_2024-25_playoffs_players.csv
+tail -n +2 nba_2025-26_playoffs_players.csv > ./no_header_data/nba_2025-26_playoffs_players.csv
+tail -n +2 nba_2024-25_playoffs_team_games.csv > ./no_header_data/nba_2024-25_playoffs_team_games.csv
+tail -n +2 nba_2025-26_playoffs_team_games.csv > ./no_header_data/nba_2025-26_playoffs_team_games.csv
+tail -n +2 nba_2024-25_regular_players.csv > ./no_header_data/nba_2024-25_regular_players.csv
+tail -n +2 nba_2025-26_regular_players.csv > ./no_header_data/nba_2025-26_regular_players.csv
+tail -n +2 nba_2024-25_regular_team_games.csv > ./no_header_data/nba_2024-25_regular_team_games.csv
+tail -n +2 nba_2025-26_regular_team_games.csv > ./no_header_data/nba_2025-26_regular_team_games.csv
+
+# Create HDFS directories for each dataset
 hdfs dfs -mkdir -p /nba_data/nba_2024-25_player_statistics
+hdfs dfs -mkdir -p /nba_data/nba_2025-26_player_statistics
 hdfs dfs -put -f ./no_header_data/nba_2024-25_player_statistics.csv /nba_data/nba_2024-25_player_statistics/
+hdfs dfs -put -f ./no_header_data/nba_2025-26_player_statistics.csv /nba_data/nba_2025-26_player_statistics/
+
+hdfs dfs -mkdir -p /nba_data/nba_2024-25_playoffs_players
+hdfs dfs -mkdir -p /nba_data/nba_2025-26_playoffs_players
+hdfs dfs -put -f ./no_header_data/nba_2024-25_playoffs_players.csv /nba_data/nba_2024-25_playoffs_players/
+hdfs dfs -put -f ./no_header_data/nba_2025-26_playoffs_players.csv /nba_data/nba_2025-26_playoffs_players/
+
+hdfs dfs -mkdir -p /nba_data/nba_2024-25_playoffs_team_games
+hdfs dfs -mkdir -p /nba_data/nba_2025-26_playoffs_team_games
+hdfs dfs -put -f ./no_header_data/nba_2024-25_playoffs_team_games.csv /nba_data/nba_2024-25_playoffs_team_games/
+hdfs dfs -put -f ./no_header_data/nba_2025-26_playoffs_team_games.csv /nba_data/nba_2025-26_playoffs_team_games/
+
+hdfs dfs -mkdir -p /nba_data/nba_2024-25_regular_players
+hdfs dfs -mkdir -p /nba_data/nba_2025-26_regular_players
+hdfs dfs -put -f ./no_header_data/nba_2024-25_regular_players.csv /nba_data/nba_2024-25_regular_players/
+hdfs dfs -put -f ./no_header_data/nba_2025-26_regular_players.csv /nba_data/nba_2025-26_regular_players/
+
+hdfs dfs -mkdir -p /nba_data/nba_2024-25_regular_team_games
+hdfs dfs -mkdir -p /nba_data/nba_2025-26_regular_team_games
+hdfs dfs -put -f ./no_header_data/nba_2024-25_regular_team_games.csv /nba_data/nba_2024-25_regular_team_games/
+hdfs dfs -put -f ./no_header_data/nba_2025-26_regular_team_games.csv /nba_data/nba_2025-26_regular_team_games/
+
+# Check the created directories (also visible in Hadoop's file view)
+hdfs dfs -ls /nba_data
 ```
 
 ### 4.2 Phase 2: Hive Table Creation
@@ -216,23 +263,26 @@ The project produces **16+ business analysis indicators** across two dimensions:
 
 Create a query function on Hive and display the query results. I have placed the result screenshot in the Hive screenshot section, and it is presented below：
 
+<div align="center">
+    <img src="Hive%20screenshot/Players_01.png" width="600" />
+</div>
+
 <details>
-  <summary><b>📸📸 Click to expand – 16 screenshots</b></summary>
+  <summary style="font-weight: bold; font-size: 1.2em;"> 📸📸 Click to expand – other 15 screenshots</summary>
   <br>
 
   <!-- Players -->
   <p><b>Players Screenshot：</b></p>
   <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
-    <img src="Hive%20screenshot/Players_01.png" width="400" />
-    <img src="Hive%20screenshot/Players_02.png" width="400" />
-    <img src="Hive%20screenshot/Players_03.png" width="400" />
-    <img src="Hive%20screenshot/Players_04.png" width="400" />
-    <img src="Hive%20screenshot/Players_05.png" width="400" />
-    <img src="Hive%20screenshot/Players_06.png" width="400" />
-    <img src="Hive%20screenshot/Players_07.png" width="400" />
-    <img src="Hive%20screenshot/Players_08.png" width="400" />
-    <img src="Hive%20screenshot/Players_09.png" width="400" />
-    <img src="Hive%20screenshot/Players_10.png" width="400" />
+    <img src="Hive%20screenshot/Players_02.png" width="600" />
+    <img src="Hive%20screenshot/Players_03.png" width="600" />
+    <img src="Hive%20screenshot/Players_04.png" width="600" />
+    <img src="Hive%20screenshot/Players_05.png" width="600" />
+    <img src="Hive%20screenshot/Players_06.png" width="600" />
+    <img src="Hive%20screenshot/Players_07.png" width="600" />
+    <img src="Hive%20screenshot/Players_08.png" width="600" />
+    <img src="Hive%20screenshot/Players_09.png" width="600" />
+    <img src="Hive%20screenshot/Players_10.png" width="600" />
   </div>
 
   <br>
@@ -240,12 +290,12 @@ Create a query function on Hive and display the query results. I have placed the
   <!-- Teams -->
   <p><b>Teams Screenshot：</b></p>
   <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
-    <img src="Hive%20screenshot/Teams_01.png" width="400" />
-    <img src="Hive%20screenshot/Teams_02.png" width="400" />
-    <img src="Hive%20screenshot/Teams_03.png" width="400" />
-    <img src="Hive%20screenshot/Teams_04.png" width="400" />
-    <img src="Hive%20screenshot/Teams_05.png" width="400" />
-    <img src="Hive%20screenshot/Teams_06.png" width="400" />
+    <img src="Hive%20screenshot/Teams_01.png" width="600" />
+    <img src="Hive%20screenshot/Teams_02.png" width="600" />
+    <img src="Hive%20screenshot/Teams_03.png" width="600" />
+    <img src="Hive%20screenshot/Teams_04.png" width="600" />
+    <img src="Hive%20screenshot/Teams_05.png" width="600" />
+    <img src="Hive%20screenshot/Teams_06.png" width="600" />
   </div>
 
 </details>
