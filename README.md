@@ -374,7 +374,7 @@ ORDER BY total_pts DESC LIMIT 20;
 
 </details>
 
-After querying relevant metrics and content on Hive, I combined the Zeppelin usage I learned in class and reproduced the query commands on Zeppelin. I used the JDBC interpreter configured on Zeppelin to connect to the Hive data warehouse. The specific code segment starts with %jdbc(hive) and queries 16 metrics related to players and teams.
+After querying relevant metrics and content on Hive, I combined the Zeppelin usage I learned in class and reproduced the query commands on Zeppelin. I used the JDBC interpreter configured on Zeppelin to connect to the Hive data warehouse. The specific code segment starts with **%jdbc(hive)** and queries 16 metrics related to players and teams.I've stored the specific query content in the **FinalReport_NBADataAnalytics.json file**. The Zeppelin query results, besides tabular data similar to Hive, also include customizable visualizations, primarily bar charts and pie charts, which distinguishes it from Hive queries. Furthermore, Zeppelin's dynamic forms allow for "parameterized queries," enabling me to filter data myself using **(${...})**.
 
 ### 4.5 Phase 5: Data Visualization
 
