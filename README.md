@@ -285,61 +285,114 @@ except Exception as e:
   <img src="Data%20visualizations/01_top_scorers.png" alt="Top Scorers" width="70%">
 </p>
 
-- Luka Doncic (Lakers) leads the league with an incredible 33.5 PPG, alongside near triple-double averages of 8.3 AST and 7.7 REB. He is followed by Shai Gilgeous-Alexander (Thunder, 31.1 PPG) and Anthony Edwards (Timberwolves, 29.2 PPG).
+This horizontal bar chart illustrates the top 20 scorers of the 2025-26 NBA season, ranked by Points Per Game (PPG), alongside their average assists (ast) and rebounds (reb).
+
+- Luka Doncic (Lakers) leads the league with an incredible 33.5 PPG, alongside near triple-double averages of 8.3 AST and 7.7 REB. He is followed by Shai Gilgeous-Alexander (Thunder, 31.1 PPG) and Anthony Edwards (Timberwolves, 29.2 PPG). Only two players crossed the 30 PPG threshold: Luka Doncic (33.5) and Shai Gilgeous-Alexander (31.1).
+
+- Jokic once again stands out for his absurd efficiency and versatility, ranking 9th in scoring (27.7 pts) while nearly averaging a 28-point triple-double with 10.7 ast and 12.9 reb.
 
 <p align="center">
   <img src="Data%20visualizations/02_team_scoring.png" alt="Team Scoring" width="70%">
 </p>
 
-- The Denver Nuggets top the league with a roaring 122.1 PPG, followed closely by the Miami Heat (120.9 PPG) and San Antonio Spurs (119.8 PPG). At the bottom, the Brooklyn Nets (105.9 PPG) struggle as the least potent offense in the league.
+This bar chart illustrates the Points Per Game (PPG) for all 30 NBA teams during the 2025-26 season, sorted from highest to lowest. Additionally, the percentage inside each bar indicates the team's Win Percentage, which is color-coded by performance tiers.
+
+- The chart categorizes teams into three performance tiers based on their win percentage:
+  - Red (Elite / Contenders): High win percentages (typically $>60\%$). These teams possess elite offensive power paired with winning records.
+  - Orange (Mid-Tier / Play-In ): Balanced win percentages (around $45\% - 60\%$). Solid offensive teams fighting for playoff positions.
+  - Gray (Rebuilding / Lottery): Low win percentages (typically $<40\%$). Despite some high scoring averages, these teams struggle to convert offense into wins.
+
+- The Denver Nuggets lead the entire league with a blistering 122.1 PPG, maintaining an elite 65.9% win rate.
+- The Utah Jazz rank 9th in scoring with an impressive 117.6 PPG, yet they are in the gray tier with a meager 26.8% win rate, suggesting severe defensive struggles.
+- The Brooklyn Nets rank dead last in offensive output, averaging only 105.9 PPG with a 24.4% win rate, sitting nearly 16 points per game behind the Nuggets.
 
 <p align="center">
   <img src="Data%20visualizations/03_reg_vs_playoffs.png" alt="Regular vs Playoffs" width="70%">
 </p>
 
-- This chart highlights which players step up in clutch moments. Players like Jalen Brunson (Knicks), Cade Cunningham (Pistons), and Paolo Banchero (Magic) saw significant scoring increases in the playoffs. Conversely, Shai Gilgeous-Alexander and Tyrese Maxey experienced a dip in their scoring outputs during the postseason.
+This clustered bar chart demonstrates how the scoring outputs (Points Per Game) of key NBA players changed between the Regular Season (Blue) and the Playoffs (Red) during the 2025-26 season.
+
+- Players like Paolo Banchero, Dillon Brooks, Scottie Barnes, and RJ Barrett saw substantial increases in their scoring averages when the postseason arrived, showing they thrive under higher defensive pressure.
+- Conversely, league superstars like Shai Gilgeous-Alexander, Jaylen Brown, and Tyrese Maxey experienced notable dips in their PPG during the playoffs, likely due to targeted defensive scheming and slower game pacing.
 
 <p align="center">
     <img src="Data%20visualizations/04_improvement.png" alt="Most Improved" width="70%">
 </p>
 
-- Nickeil Alexander-Walker shows the most explosive growth, increasing his scoring average by a massive +11.4 PPG. Lauri Markkanen (+7.7 PPG) and Deni Avdija (+7.5 PPG) also show stunning leaps into elite-tier scoring roles.
+This clustered bar chart compares the scoring progression (Points Per Game) of the league's most improved players between the 2024-25 season (Gray) and the 2025-26 season (Green). The green numeric labels above the bars represent the exact PPG increase for each player.
+
+- Nickeil Alexander-Walker achieved the largest scoring jump in the league, exploding by +11.4 PPG to elevate his average from a single-digit role player (9.4 PPG) into a verified 20+ point scoring threat (20.8 PPG).
+- Some scoring explosions are due to roster changes and unexpected situations. For example, Lauri Markkanen's surge (+7.7 PPG) might be related to the team's player configuration; in order to get draft picks, the team traded away players with high scoring explosive power on the roster, forcing Markkanen to take on more shots and scoring. On the other hand, Jaylen Brown's increase (+6.5 PPG) was because the team's other core player, Tatum, got injured, so he had to shoulder the team's offensive firepower and score more points.
+- Young players like Reed Sheppard (+7.4) and Keyonte George (+6.9) showed immense developmental leaps, securing expanded roles and turning into major focal points for their teams' offenses.
 
 <p align="center">
   <img src="Data%20visualizations/05_efficiency.png" alt="Scoring Efficiency" width="70%">
 </p>
 
-- Nikola Jokic and Shai Gilgeous-Alexander occupy the ideal upper-right quadrant, combining high scoring volume with elite True Shooting Percentage (TS%) and high Plus/Minus values (dark green bubbles). Doncic has the highest volume (farthest right) but with slightly lower efficiency (~61% TS%) compared to Jokic.
+This bubble chart maps player performance across four distinct dimensions during the 2025-26 NBA season:
+ - - X-Axis: Points Per Game (PPG)
+ - - Y-Axis: True Shooting Percentage (TS%)
+ - - Bubble Size: Games Played
+ - - Color Bar: Average Plus/Minus Value (+/-)
+
+- Players in the far right are the league's primary offensive options. Nikola Jokic and Shai Gilgeous-Alexander stand out in the upper right, combining elite volume ($\ge 27\text{ PPG}$) with hyper-efficiency (TS% near or above $68\%$). Their deep green bubbles confirm their massive positive impact on winning.
+- Luka Doncic occupies the extreme far-right position alone ($\sim 33.5\text{ PPG}$), representing the league's highest offensive load, while maintaining a very solid $61\%$ TS%.
+- The color gradient clearly highlights that high efficiency (TS%) and high volume generally correlate with a strongly positive average plus/minus (dark green), whereas low-efficiency high-volume players or lower-quadrant players skew towards orange and red.
 
 <p align="center">
   <img src="Data%20visualizations/06_all_around.png" alt="All-Around Players" width="70%">
 </p>
 
-- Nikola Jokic reigns supreme as the ultimate stat-sheet stuffer with a combined score of 51.3, heavily supported by massive rebounding and assist shares. Luka Doncic (49.5) takes second, while Giannis Antetokounmpo (44.5) stands third.
+This stacked bar chart shows the league's top 20 players based on their cumulative box-score impact, calculated by adding Points (Red), Rebounds (Orange), and Assists (Green). The total value at the end of each bar represents their combined per-game statistical contribution.
+
+- Nikola Jokic captures the absolute top spot with a staggering 51.3 combined statistic, driven by balanced elite metrics across all three categories. Luka Doncic follows closely at 49.5, fueled by his massive scoring volume (the largest red bar in the chart).
+- The chart beautifully highlights contrasting playstyles. For example, Victor Wembanyama (39.6 total) relies heavily on points and rebounds (large orange bar) with less playmaking, whereas James Harden (38.3 total) features a much larger assist slice (green bar) relative to his rebounding.
+- Jalen Johnson of the Hawks makes a phenomenal appearance in the top 5 with a 41.2 total rating, cementing his status as one of the elite versatile forwards in this simulated data landscape.
 
 <p align="center">
   <img src="Data%20visualizations/07_home_away.png" alt="Home vs Away" width="70%">
 </p>
 
-- While the game distribution between home and away is an even split (left), the win rates show a fascinating anomaly: Away teams had a higher win rate (55.4%) than Home teams (44.6%), scoring more points on the road (116.5) than at home (114.8). This flips traditional home-court advantage on its head.
+This analysis investigates the impact of home court advantage during the 2025-26 NBA season, utilizing two key visualizations: a Game Distribution Pie Chart and a Home vs. Away Win Rate Bar Chart.
+
+- Significant Win Rate Discrepancy: Teams playing on their home court experience a 10.8% bump in win probability compared to playing on the road. In the context of an NBA season, this is a massive statistical edge.
+
+- Elevated Offensive Efficiency: Teams score an average of 1.7 more points per game at home. This boost in offensive production can likely be attributed to familiar shooting backdrops, the energy of the home crowd, and the absence of travel fatigue.
+
+- The data from the 2025-26 season strongly confirms that home-court advantage remains a critical factor in determining game outcomes, substantially boosting both a team's offensive output and their overall likelihood of winning.
 
 <p align="center">
   <img src="Data%20visualizations/08_three_pointers.png" alt="Three-Point Accuracy" width="70%">
 </p>
 
-- Luke Kennard (Hawks) lights it up from deep, leading the league with a near-impossible 49.7% 3PT%. Bobby Portis (45.6%) and Ayo Dosunmu (45.1%) follow. Jamal Murray’s 43.7% is highly impressive given his massive volume of 561 attempts.
+This horizontal bar chart ranks the top 15 individual three-point shooters of the 2025-26 season who met the minimum qualification threshold of 100 three-point attempts (3PA).
+
+- Luke Kennard (Hawks) absolute dominates the efficiency leaderboard, shooting a historic 49.7% on 149 attempts, nearly breaching the legendary 50% threshold.
+- While Kennard leads in efficiency, players like Jamal Murray (561 3PA at 43.7%) and Isaiah Joe (416 3PA at 42.5%) showcase extraordinary elite volume while maintaining elite, sniper-level efficiency.
 
 <p align="center">
    <img src="Data%20visualizations/09_star_radar.png" alt="Star Radar" width="70%">
 </p>
 
-- Luka Doncic (Green) covers massive real estate in cumulative box-score stats like PTS, REB, and AST. However, Shai Gilgeous-Alexander (Orange) dominates in impact and defensive metrics, showing superior marks in +/-, BLK, and STL.
+This radar chart provides a normalized, multi-dimensional comparison between the league's top two MVP candidates of the 2025-26 season: Luka Doncic (Green) and Shai Gilgeous-Alexander (Orange). The metrics include Rebounds (REB), Assists (AST), Points (PTS), Plus/Minus (+/-), Blocks (BLK), and Steals (STL).
+
+- Doncic dominates the upper half of the radar chart, achieving maximum normalized scores ($1.0$) in Points (PTS), Assists (AST), Rebounds (REB), and Steals (STL). This highlights his massive, elite offensive workload and playmaking engine.
+- While slightly trailing Doncic in raw counting volume for passing and rebounding, SGA dominates the bottom half of the chart. He hits a perfect $1.0$ in Plus/Minus (+/-) and Blocks (BLK), underscoring his superior rim protection for a guard and his elite translation of individual production into team success.
 
 <p align="center">
   <img src="Data%20visualizations/10_team_boxplot.png" alt="Team Boxplot" width="70%">
 </p>
 
-- The Denver Nuggets not only have the highest average but their entire scoring floor and median (dark blue box) are elevated. Teams like the Knicks and 76ers show wide volatility (long whiskers and outliers), while the Brooklyn Nets (far right, maroon) are compressed at the bottom of the league's scoring spectrum.
+This boxplot with overlaid individual game data points (stripplot) visualizes the scoring consistency, floor, ceiling, and offensive variance for all 30 NBA teams during the 2025-26 season, ordered by their median scoring output.
+- Key Statistical Reading Guide
+  - Box Center Line: Median scoring performance per game.
+  - Box Length (Interquartile Range): Represents the middle 50% of games played. Shorter boxes mean high consistency, while longer boxes mean high unpredictability.
+  - Outliers (Dots outside whiskers): Games with extreme blowout scores or defensive gridlocks.
+
+- The Denver Nuggets not only boast the highest median scoring output (aligning with their #1 ranking in total PPG), but their tight box profile shows remarkable offensive stability, consistently hovering between 115 and 130 points per game.
+- Teams like the Philadelphia 76ers, New York Knicks, and Atlanta Hawks feature exceptionally long vertical whiskers and prominent outlier circles. This indicates high offensive volatility, capable of exploding for 150+ points or crashing to sub-90 performances depending on game pacing and hot shooting nights.
+- The Brooklyn Nets sit squarely at the bottom of the distribution chart. Their entire box is shifted downward, with their median sitting below 110 points and recording the single lowest scoring game outlier of the season (under 70 points).
+
 
 <p align="center">
   <img src="Data%20visualizations/11_multi_players_pie.png" alt="Multi-Player Pie Chart" width="70%">
