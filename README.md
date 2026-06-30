@@ -247,21 +247,28 @@ FROM raw_player_stats;
 The project produces **16+ business analysis indicators** across two dimensions:
 
 #### Player Dimension (10 indicators)
-- Points leaderboard (PPG)
-- Scoring efficiency (TS%, eFG%)
-- All-around contribution (PTS + REB + AST)
-- Most Improved Player (MIP)
-- Three-point accuracy leaders
-- Star player radar profiles
+- 01	Total Points Leaders TOP 20
+- 02	Scoring Leaders by AVG TOP 20
+- 03	Regular Season vs Playoffs Differential
+- 04	MIP Year-over-Year Growth Tracker
+- 05	All-Around Leaders TOP 20
+- 06	Postseason MVP Candidates Tracker
+- 07	Three-Point Precision Shooting Ranking
+- 08	Individual Average Plus-Minus Leaders
+- 09	The five best players of each team this season
+- 10	Comparison of the top 4 scorers
 
 #### Team Dimension (6 indicators)
-- Team offensive ranking
-- Regular season vs. playoff performance comparison
-- Home vs. away win rate analysis
-- Team scoring distribution boxplots
-- Multi-player contribution breakdown
+- 01	Team Offensive Rankings with FG Details
+- 02	Home vs Away Strategic Split
+- 03	Team Offensive Rankings
+- 04	Postseason Playoff Team Offensive Rankings
+- 05	Defensive and Net Margin Elite Tier Rankings
+- 06	Maximum Team Single-Game Scoring Milestones
 
-Create a query function on Hive and display the query results. I have placed the result screenshot in the Hive screenshot section, and it is presented below：
+I have compiled and saved the query functions in the file 04_HIVE_Query_Commands.sql
+
+For example, create a query function in Hive and display the query results. I’ve included a screenshot of the results in the Hive screenshot section below:
 
 ```sql
 -- 01 Total Points Leaders TOP 20
