@@ -374,6 +374,8 @@ ORDER BY total_pts DESC LIMIT 20;
 
 </details>
 
+After querying relevant metrics and content on Hive, I combined the Zeppelin usage I learned in class and reproduced the query commands on Zeppelin. I used the JDBC interpreter configured on Zeppelin to connect to the Hive data warehouse. The specific code segment starts with %jdbc(hive) and queries 16 metrics related to players and teams.
+
 ### 4.5 Phase 5: Data Visualization
 
 Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated
