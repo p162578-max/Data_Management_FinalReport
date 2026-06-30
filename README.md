@@ -263,6 +263,14 @@ The project produces **16+ business analysis indicators** across two dimensions:
 
 Create a query function on Hive and display the query results. I have placed the result screenshot in the Hive screenshot section, and it is presented below：
 
+```sql
+-- 01 Total Points Leaders TOP 20
+SELECT fullName, team_name, games_played, total_pts, avg_pts, avg_ast, avg_reb
+FROM nba_player_season_summary
+WHERE season = '2025-26' AND game_type = 'Regular Season' AND games_played >= 20
+ORDER BY total_pts DESC LIMIT 20;
+```
+
 <div align="center">
     <img src="Hive%20screenshot/Players_01.png" width="600" />
 </div>
