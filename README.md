@@ -376,7 +376,9 @@ ORDER BY total_pts DESC LIMIT 20;
 
 After querying relevant metrics and content on Hive, I combined the Zeppelin usage I learned in class and reproduced the query commands on Zeppelin. I used the JDBC interpreter configured on Zeppelin to connect to the Hive data warehouse. The specific code segment starts with **%jdbc(hive)** and queries 16 metrics related to players and teams.I've stored the specific query content in the **FinalReport_NBADataAnalytics.json file**. The Zeppelin query results, besides tabular data similar to Hive, also include customizable visualizations, primarily bar charts and pie charts, which distinguishes it from Hive queries. Furthermore, Zeppelin's dynamic forms allow for "parameterized queries," enabling me to filter data myself using **(${...})**.
 
-### 4.5 Phase 5: Data Visualization
+### 4.5 Phase 5: Optimize Data Visualization
+
+Visualizing data on Zeppelin ultimately has some limitations; it's not aesthetically pleasing or intuitive enough. Therefore, my approach was to connect to the virtual machine's Hive database using a local Python interpreter. I used my VS Code to connect to the virtual machine and then performed data visualization analysis on my local VS Code. This allowed me to create more intuitive bubble scatter plots, horizontal bar charts, and radar charts.I stored the specific Python code in the **nba_visualization.py** file, including the Hive link, the definition of the visualization output function, and the plotting functions for 11 metrics and their visualizations.
 
 Using Python (Matplotlib + Seaborn) connected to HiveServer2 via Impyla, **11 professional charts** were generated
 
