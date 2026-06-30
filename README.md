@@ -195,7 +195,7 @@ hdfs dfs -ls /nba_data
 
 ### 4.2 Phase 2: Hive Table Creation
 
-Create 10 external tables corresponding to each CSV file, covering player statistics, regular/playoff player summaries, and regular/playoff team game logs for both seasons.
+Create 10 external tables corresponding to each CSV file, covering player statistics, regular/playoff player summaries, and regular/playoff team game logs for both seasons.I've saved the commands and details for creating external tables in the Hive interface in  **02_HIVE_CREATE_TABLE.sql** .  You can refer to this file if you want to reproduce the table creation process, paying attention to the corresponding data types.
 
 Example table creation:
 
@@ -234,7 +234,7 @@ Perform ETL to clean raw data and create unified views，create 5 tables and 1 v
 - 05 nba_player_season_summary
 - 06 nba_players_all(View for Players)
 
-I have compiled and saved the cleaning functions and table join functions in the file 03_Data_Cleaning_and_Table_Join.sql. You can refer to it for details.
+I have compiled and saved the cleaning functions and table join functions in the file  **03_Data_Cleaning_and_Table_Join.sql** .  You can refer to it for details.
 
 For example：
 
@@ -325,7 +325,7 @@ The project produces **16+ business analysis indicators** across two dimensions:
 - 05	Defensive and Net Margin Elite Tier Rankings
 - 06	Maximum Team Single-Game Scoring Milestones
 
-I have compiled and saved the query functions in the file 04_HIVE_Query_Commands.sql
+I have compiled and saved the query functions in the file **04_HIVE_Query_Commands.sql**. 
 
 For example, create a query function in Hive and display the query results. I’ve included a screenshot of the results in the Hive screenshot section below:
 
