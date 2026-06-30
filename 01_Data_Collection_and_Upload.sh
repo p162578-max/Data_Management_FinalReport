@@ -1,12 +1,8 @@
 #!/bin/bash
-# =============================================================================
 # NBA Data Management - Final Report
 # Phase 1 & 2: Data Collection, Download & HDFS Upload
-# =============================================================================
-
-# =============================================================================
 # Phase 1: Data Collection
-# =============================================================================
+
 # Data sources include Basketball-Reference.com, stats.nba.com, and the
 # "NBA Dataset: Box Scores and Stats (1947 – Today)" from Kaggle.
 # After processing, 10 raw CSV datasets were compiled for the two most recent
