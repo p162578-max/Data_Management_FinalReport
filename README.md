@@ -122,12 +122,8 @@ The project compiles **10 CSV datasets** in total:
 - Build aggregated summary tables (`nba_player_season_summary`)
 
 <div align="center">
-    <img src="Hive%20screenshot/HDFS_HIVE01.png">
+    <img src="Hive%20screenshot/nba_db.png">
 </div>
-
-<p align="center">
-  <img src="Hive%20screenshot/HDFS_HIVE02.png">
-</p>
 
 ## 4. Analysis Workflow
 
@@ -221,42 +217,38 @@ The project produces **16+ business analysis indicators** across two dimensions:
 Create a query function on Hive and display the query results. I have placed the result screenshot in the Hive screenshot section, and it is presented below：
 
 <details>
-  <summary><b>📸 点击展开查看所有截图（共16张）</b></summary>
+  <summary><b>📸📸 Click to expand – 16 screenshots</b></summary>
   <br>
 
-  <!-- Players 区域 -->
-  <p><b>Players 截图：</b></p>
-  <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-    <img src="Hive%20screenshot/Players_01.png" width="120" />
-    <img src="Hive%20screenshot/Players_02.png" width="120" />
-    <img src="Hive%20screenshot/Players_03.png" width="120" />
-    <img src="Hive%20screenshot/Players_04.png" width="120" />
-    <img src="Hive%20screenshot/Players_05.png" width="120" />
-    <img src="Hive%20screenshot/Players_06.png" width="120" />
-    <img src="Hive%20screenshot/Players_07.png" width="120" />
-    <img src="Hive%20screenshot/Players_08.png" width="120" />
-    <img src="Hive%20screenshot/Players_09.png" width="120" />
-    <img src="Hive%20screenshot/Players_10.png" width="120" />
+  <!-- Players -->
+  <p><b>Players Screenshot：</b></p>
+  <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+    <img src="Hive%20screenshot/Players_01.png" width="400" />
+    <img src="Hive%20screenshot/Players_02.png" width="400" />
+    <img src="Hive%20screenshot/Players_03.png" width="400" />
+    <img src="Hive%20screenshot/Players_04.png" width="400" />
+    <img src="Hive%20screenshot/Players_05.png" width="400" />
+    <img src="Hive%20screenshot/Players_06.png" width="400" />
+    <img src="Hive%20screenshot/Players_07.png" width="400" />
+    <img src="Hive%20screenshot/Players_08.png" width="400" />
+    <img src="Hive%20screenshot/Players_09.png" width="400" />
+    <img src="Hive%20screenshot/Players_10.png" width="400" />
   </div>
 
   <br>
 
-  <!-- Teams 区域 -->
-  <p><b>Teams 截图：</b></p>
-  <div style="display: flex; flex-wrap: wrap; gap: 5px;">
-    <img src="Hive%20screenshot/Teams_01.png" width="120" />
-    <img src="Hive%20screenshot/Teams_02.png" width="120" />
-    <img src="Hive%20screenshot/Teams_03.png" width="120" />
-    <img src="Hive%20screenshot/Teams_04.png" width="120" />
-    <img src="Hive%20screenshot/Teams_05.png" width="120" />
-    <img src="Hive%20screenshot/Teams_06.png" width="120" />
+  <!-- Teams -->
+  <p><b>Teams Screenshot：</b></p>
+  <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+    <img src="Hive%20screenshot/Teams_01.png" width="400" />
+    <img src="Hive%20screenshot/Teams_02.png" width="400" />
+    <img src="Hive%20screenshot/Teams_03.png" width="400" />
+    <img src="Hive%20screenshot/Teams_04.png" width="400" />
+    <img src="Hive%20screenshot/Teams_05.png" width="400" />
+    <img src="Hive%20screenshot/Teams_06.png" width="400" />
   </div>
 
 </details>
-
-<p align="center">
-  <img src="Hive%20screenshot/Players_01.png" alt="Top Scorers" width="50%">
-</p>
 
 ### 4.5 Phase 5: Data Visualization
 
